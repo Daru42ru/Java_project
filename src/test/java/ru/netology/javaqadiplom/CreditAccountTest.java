@@ -18,6 +18,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(2_500, account.getBalance());
     }
+
     @Test
     // Пополнение кредитного счёта на 0 рублей
     public void shouldNotAddZeroBalance() {
@@ -31,6 +32,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(500, account.getBalance());
     }
+
     @Test
     // Сумма покупки меньше баланс+лимит
     public void shouldPayIfAmountLess() {
@@ -44,6 +46,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(-2_500, account.getBalance());
     }
+
     @Test
     // Сумма покупки равна баланс+лимит
     public void shouldPayIfAmountEqual() {
@@ -57,6 +60,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(-5_000, account.getBalance());
     }
+
     @Test
     // Сумма покупки больше баланс+лимит
     public void shouldPayIfAmountMore() {
@@ -70,6 +74,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(5_500, account.getBalance());
     }
+
     @Test
     // Сумма покупки равна 0
     public void shouldNotPayAmountZero() {
@@ -83,6 +88,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(500, account.getBalance());
     }
+
     @Test
     // Начисление процентов при отрицательном балансе
     public void shouldAccruePercentIfBalanceNegative() {
@@ -96,6 +102,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(-75, account.yearChange());
     }
+
     @Test
     // Начисление процентов при положительном балансе
     public void shouldNotAccruePercentIfBalancePositive() {
@@ -109,6 +116,7 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(0, account.yearChange());
     }
+
     @Test
     // Начисление процентов при нуливом балансе
     public void shouldNotAccruePercentIfBalanceZero() {
@@ -122,25 +130,28 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(0, account.yearChange());
     }
+
     @Test
     // Исключение при отрицательной ставке
     public void shouldNotNegativePercent() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(0,5000, -15);
+            CreditAccount account = new CreditAccount(0, 5000, -15);
         });
     }
+
     @Test
     // Исключение при отрицательном лимите
     public void shouldNotNegativeLimit() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(0,-5000, 15);
+            CreditAccount account = new CreditAccount(0, -5000, 15);
         });
     }
+
     @Test
     // Исключение при отрицательном балансе (создание карты)
     public void shouldNotNegativeBalance() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(-500,5000, 15);
+            CreditAccount account = new CreditAccount(-500, 5000, 15);
         });
     }
 }
