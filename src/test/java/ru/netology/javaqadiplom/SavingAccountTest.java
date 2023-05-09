@@ -281,12 +281,26 @@ public class SavingAccountTest {
     @Test
     void shouldReturnTrueAtAddIfAfterAmountBalanceEqualsMaxBalanceForSavingAccount() {
         SavingAccount account = new SavingAccount(
-                2_000,
-                1_000,
-                10_000,
+                1_500,
+                500,
+                5_000,
                 5
         );
-        Assertions.assertTrue(account.add(8_000));
+        Assertions.assertTrue(account.add(3_500));
+    }
+
+    @Test
+    public void shouldAddLessThanMaxBalanceForSavingAccount() {
+        SavingAccount account = new SavingAccount(
+                1_500,
+                500,
+                5_000,
+                5
+        );
+
+        account.add(1_000);
+
+        Assertions.assertEquals(1_500 + 1_000, account.getBalance());
     }
 
     @Test
@@ -314,12 +328,12 @@ public class SavingAccountTest {
     @Test
     void shouldCalculatePercentOnBalanceWithResultOneForSavingAccount() {
         SavingAccount account = new SavingAccount(
-                20,
+                500,
                 500,
                 5_000,
                 5
         );
-        Assertions.assertEquals(1, account.yearChange());
+        Assertions.assertEquals(25, account.yearChange());
     }
 
     @Test
