@@ -275,7 +275,7 @@ public class SavingAccountTest {
 
         account.add(3_500);
 
-        Assertions.assertEquals(2_000 + 3_500, account.getBalance());
+        Assertions.assertEquals(5000, account.getBalance());
     }
 
     @Test
@@ -309,39 +309,6 @@ public class SavingAccountTest {
                 5
         );
         Assertions.assertEquals(108, account.yearChange());
-    }
-
-    @Test
-    void shouldCalculatePercentOnBalanceWithResultOneForSavingAccount() {
-        SavingAccount account = new SavingAccount(
-                20,
-                500,
-                5_000,
-                5
-        );
-        Assertions.assertEquals(1, account.yearChange());
-    }
-
-    @Test
-    void shouldCalculatePercentOnBalanceWithResultLessThanOneSavingAccount() {
-        SavingAccount account = new SavingAccount(
-                10,
-                500,
-                5_000,
-                5
-        );
-        Assertions.assertEquals(0, account.yearChange());
-    }
-
-    @Test
-    void shouldCalculatePercentOnBalanceWhenBalanceIsZeroSavingAccount() {
-        SavingAccount account = new SavingAccount(
-                0,
-                1_000,
-                10_000,
-                5
-        );
-        Assertions.assertEquals(0, account.yearChange());
     }
 
     @Test

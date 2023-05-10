@@ -67,8 +67,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = balance - amount;
-        if (balance > minBalance) {
+        if (amount <= balance - minBalance) {
+            balance = balance - amount;
             return true;
         } else {
             return false;
@@ -92,8 +92,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if (balance + amount < maxBalance) {
-            balance = amount;
+        if (balance + amount <= maxBalance) {
+            balance = balance + amount;
             return true;
         } else {
             return false;
@@ -110,7 +110,11 @@ public class SavingAccount extends Account {
      */
     @Override
     public int yearChange() {
-        return balance / 100 * rate;
+        if (balance > minBalance) {
+            return (balance * rate / 100);
+        } else {
+            return 0;
+        }
     }
 
     public int getMinBalance() {
