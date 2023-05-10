@@ -281,12 +281,26 @@ public class SavingAccountTest {
     @Test
     void shouldReturnTrueAtAddIfAfterAmountBalanceEqualsMaxBalanceForSavingAccount() {
         SavingAccount account = new SavingAccount(
-                2_000,
-                1_000,
-                10_000,
+                1_500,
+                500,
+                5_000,
                 5
         );
-        Assertions.assertTrue(account.add(8_000));
+        Assertions.assertTrue(account.add(3_500));
+    }
+
+    @Test
+    public void shouldAddLessThanMaxBalanceForSavingAccount() {
+        SavingAccount account = new SavingAccount(
+                1_500,
+                500,
+                5_000,
+                5
+        );
+
+        account.add(1_000);
+
+        Assertions.assertEquals(1_500 + 1_000, account.getBalance());
     }
 
     @Test
@@ -312,6 +326,42 @@ public class SavingAccountTest {
     }
 
     @Test
+<<<<<<< HEAD
+=======
+    void shouldCalculatePercentOnBalanceWithResultOneForSavingAccount() {
+        SavingAccount account = new SavingAccount(
+                500,
+                500,
+                5_000,
+                5
+        );
+        Assertions.assertEquals(25, account.yearChange());
+    }
+
+    @Test
+    void shouldCalculatePercentOnBalanceWithResultLessThanOneSavingAccount() {
+        SavingAccount account = new SavingAccount(
+                10,
+                500,
+                5_000,
+                5
+        );
+        Assertions.assertEquals(0, account.yearChange());
+    }
+
+    @Test
+    void shouldCalculatePercentOnBalanceWhenBalanceIsZeroSavingAccount() {
+        SavingAccount account = new SavingAccount(
+                0,
+                1_000,
+                10_000,
+                5
+        );
+        Assertions.assertEquals(0, account.yearChange());
+    }
+
+    @Test
+>>>>>>> a05c5c486c00c134b18558d850a82cc865f4e8c7
     void shouldCalculatePercentOnBalanceWhenRateIsZeroSavingAccount() {
         SavingAccount account = new SavingAccount(
                 1_500,
