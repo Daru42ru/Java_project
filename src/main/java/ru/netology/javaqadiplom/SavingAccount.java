@@ -26,6 +26,26 @@ public class SavingAccount extends Account {
                     "Накопительная ставка не может быть отрицательной, а у вас: " + rate
             );
         }
+        if (minBalance < 0) {
+            throw new IllegalArgumentException(
+                    "Минимальный баланс не может быть отрицательным, а у вас: " + minBalance
+            );
+        }
+        if (initialBalance < minBalance) {
+            throw new IllegalArgumentException(
+                    "Ваш баланс не может быть меньше минимального баланса, а у вас: " + initialBalance
+            );
+        }
+        if (maxBalance < minBalance) {
+            throw new IllegalArgumentException(
+                    "Максимальный баланс не может быть меньше минимального, а у вас: " + maxBalance
+            );
+        }
+        if (maxBalance == minBalance) {
+            throw new IllegalArgumentException(
+                    "Максимальный баланс не может быть равен минимальному балансу, а у вас: " + maxBalance
+            );
+        }
         this.balance = initialBalance;
         this.minBalance = minBalance;
         this.maxBalance = maxBalance;
@@ -47,8 +67,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = balance - amount;
-        if (balance > minBalance) {
+        if (amount <= balance - minBalance) {
+            balance = balance - amount;
             return true;
         } else {
             return false;
@@ -72,8 +92,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if (balance + amount < maxBalance) {
-            balance = amount;
+        if (balance + amount <= maxBalance) {
+            balance = balance + amount;
             return true;
         } else {
             return false;
@@ -90,7 +110,11 @@ public class SavingAccount extends Account {
      */
     @Override
     public int yearChange() {
-        return balance / 100 * rate;
+        if (balance > minBalance) {
+            return (balance * rate / 100);
+        } else {
+            return 0;
+        }
     }
 
     public int getMinBalance() {
